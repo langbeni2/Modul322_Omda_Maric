@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    x:Class="Modul322_Omda_Maric.MainPage"
+    
+    Title="Hauptseite">
+
+    <AbsoluteLayout>
+
+        <!-- 1) Haupt-Grid: Toolbar, Liste, BottomBar -->
+        <Grid
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      AbsoluteLayout.LayoutFlags="All"
+      RowDefinitions="Auto,*,Auto"
+      ColumnDefinitions="*">
+
+            <!-- A) Toolbar -->
+            <Label
+        Grid.Row="0"
+        Text="Hauptseite"
+        FontSize="20"
+        FontAttributes="Bold"
+        BackgroundColor="{DynamicResource Primary}"
+        TextColor="White"
+        Padding="12" />
+
+            <!-- B) Product-Liste -->
+            <CollectionView
+        Grid.Row="1"
+        x:Name="ProductsView"
+        ItemsSource="{Binding Products}"
+        Margin="8">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+              Padding="8"
+              Margin="4"
+              CornerRadius="4"
+              HasShadow="True">
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+
+                                <!-- Icon -->
+                                <Image
+                  Grid.RowSpan="2"
+                  Source="{Binding IconSource}"
+                  WidthRequest="40"
+                  HeightRequest="40" />
+
+                                <!-- Name -->
+                                <Label
+                  Grid.Column="1"
+                  Text="{Binding Name}"
+                  FontAttributes="Bold"
+                  FontSize="16" />
+
+                                <!-- Datum -->
+                                <Label
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Text="{Binding CreatedAt, StringFormat='Erstellt am: {0:dd.MM.yy}'}"
+                  FontSize="12"
+                  TextColor="#666" />
+
+                                <!-- Preis -->
+                                <Label
+                  Grid.Column="2"
+                  Text="{Binding Price, StringFormat='{}{0:C}'}"
+                  FontSize="16"
+                  HorizontalOptions="End" />
+
+                                <!-- Löschen -->
+                                <ImageButton
+                  Grid.Row="1"
+                  Grid.Column="2"
+                  Source="trash.png"
+                  Clicked="OnDeleteClicked"
+                  BackgroundColor="Transparent"
+                  HorizontalOptions="End" />
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- C) Untere Leiste -->
+            <Grid
+        Grid.Row="2"
+        ColumnDefinitions="Auto,*,Auto"
+        BackgroundColor="#EEEEEE"
+        Padding="8">
+                <Label
+          Text="Gespartes:"
+          FontAttributes="Bold"
+          VerticalOptions="Center" />
+
+                <Entry
+          Grid.Column="1"
+          Placeholder="Betrag"
+          Keyboard="Numeric"
+          Text="{Binding SavedAmount}" />
+
+
+                <Button
+                 Grid.Column="2"
+            Clicked="OnInfoClicked"
+  BackgroundColor="Transparent"
+  WidthRequest="32"
+  HeightRequest="32"
+  Padding="4">
+                    <Button.ImageSource>
+                        <FileImageSource File="info.png" />
+                    </Button.ImageSource>
+                </Button>
+
+
+            </Grid>
+        </Grid>
+
+        <!-- 2) Floating “+”-Button -->
+        <Button
+      AbsoluteLayout.LayoutFlags="PositionProportional"
+      AbsoluteLayout.LayoutBounds="0.95,0.85,AutoSize,AutoSize"
+      Text="+"
+      FontSize="24"
+      WidthRequest="56"
+      HeightRequest="56"
+      CornerRadius="28"
+      BackgroundColor="{DynamicResource Primary}"
+      TextColor="White"
+      Clicked="OnAddClicked" />
+            
+    </AbsoluteLayout>
+    
+</ContentPage>

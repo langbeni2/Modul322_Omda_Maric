@@ -5,11 +5,10 @@
         public App()
         {
             InitializeComponent();
-        }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
+            // MainPage in eine NavigationPage packen
+            MainPage = new NavigationPage(new MainPage());
         }
     }
+
 }
